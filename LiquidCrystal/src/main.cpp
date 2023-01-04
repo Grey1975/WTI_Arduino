@@ -10,7 +10,7 @@ int prevSwitchState = 0;
 int reply;
 
 void setup()
-{
+{ 
   lcd.begin(16, 2);
   pinMode(switchPin, INPUT);
   lcd.print("Ask the");
