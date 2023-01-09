@@ -14,6 +14,25 @@ int valSwitch;
 int knockNum = 0;
 boolean locked = false;
 
+boolean checkForKnock(int val)
+{
+  if (val > quietKnock && val < loudKnock)
+  {
+    digitalWrite(yellowLED, HIGH);
+    delay(50);
+    digitalWrite(yellowLED, LOW);
+    Serial.print("Valid knock of value ");
+    Serial.println(val);
+    return true;
+  }
+  else
+  {
+    Serial.print("Bad knock Value: ");
+    Serial.println(val);
+    return false;
+  }
+}
+
 void setup()
 {
   Serial.begin(9600);
@@ -51,9 +70,10 @@ void loop()
       if (checkForKnock(knockVal))
       {
         knockNum++;
+        int foo = 3 - knockNum;
+        Serial.print(foo);
+        Serial.println(" more knocks to go!");
       }
-      Serial.print(3 - knockNum);
-      Serial.println(" more knocks to go!");
     }
     if (knockNum >= 3)
     {
@@ -65,24 +85,5 @@ void loop()
       Serial.println("The Box is Unlocked!");
       knockNum = 0;
     }
-  }
-}
-
-boolean checkForKnock(int val)
-{
-  if (val > quietKnock && val < loudKnock)
-  {
-    digitalWrite(yellowLED, HIGH);
-    delay(50);
-    digitalWrite(yellowLED, LOW);
-    Serial.print("Valid knock of value ");
-    Serial.print(val);
-    return true;
-  }
-  else
-  {
-    Serial.print("Bad knock Value: ");
-    Serial.print(val);
-    return false;
   }
 }
